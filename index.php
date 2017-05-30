@@ -9,7 +9,7 @@ include 'includes/header.php';
       </div>
       <div class="mdl-card mdl-cell mdl-cell--12-col">
           <div class="mdl-card__supporting-text">
-            <p style="text-align:center"><img src="<?php echo $url ?>/assets/img/welcome.png" width="100%"></img></p>
+            <p style="text-align:center"><img src="<?php echo $url ?>/assets/img/welcome.jpg" width="100%"></img></p>
             <p><b>SmartVision</b> was developed by Riley Green <i>(In collaboration with Accenture and the University of Sydney)</i> for the Purpose of Prototyping various OCR and Image Recognition Technologies.</p>
             <p>SmartVision is also accessable from an API, the documentation can be viewed below.</p>
             <p>If you wish to use this application please contact <b>Riley Green</b>.</p>

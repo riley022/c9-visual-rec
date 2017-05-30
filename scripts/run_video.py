@@ -33,9 +33,12 @@ file_name = sys.argv[1]
 # The full url of the image
 cmd1 = "mv /home/ubuntu/workspace/product-images/" + file_name + " /home/ubuntu/workspace/product-videos/"
 print(cmd1)
-#output = subprocess.Popen(['/bin/bash', '-c', cmd1], stdout=subprocess.PIPE);
+output = subprocess.Popen(['/bin/bash', '-c', cmd1], stdout=subprocess.PIPE);
 
-cmd2 = "ffmpeg -i /home/ubuntu/workspace/product-videos/" + file_name + " -ss 00:00:01:00 -vframes 1 /home/ubuntu/workspace/product-images/" + file_name[0:-4] + ".jpg"
+cmd2 = "ffmpeg -i /home/ubuntu/workspace/product-videos/" + file_name + " -ss 00:00:01 -vframes 1 /home/ubuntu/workspace/product-images/" + file_name[0:-4] + ".jpg"
 print(cmd2)
-#output = subprocess.Popen(['/bin/bash', '-c', cmd2], stdout=subprocess.PIPE);
+output = subprocess.Popen(['/bin/bash', '-c', cmd2], stdout=subprocess.PIPE);
 
+cmd3 = "ssh -i scripts/rsa-private-key.pem ubuntu@54.153.238.139 'cd /home/ubuntu/darknet-video; wget https://visual-recognition-rgre2543.c9users.io/product-videos/" + file_name + "; screen -d -m ./run_me.sh " + file_name +"'"
+print(cmd2)
+output = subprocess.Popen(['/bin/bash', '-c', cmd3], stdout=subprocess.PIPE);

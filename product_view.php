@@ -24,7 +24,10 @@
         <h5 style="margin: 0 0 16px">Information</h5>
         <p>
           <label><b>Product Name</b></label>
-          <p style="text-transform: capitalize;"><?php echo $row['name'] ?></p>
+          <p style="text-transform: capitalize;"><?php echo $row['name']." - " ?> 
+          <?php echo $row['ref'] ?></p>
+          <label><b>Product Video</b></label>
+          <p><a href="<?php echo "http://54.153.238.139/img/".$row['ref'].".mp4"; ?>" >Click Here</a> - Not Avaliable for all Products (May take up to 5 minutes)</p>
           <label><b>Processed Image</b></label>
           <br>
           <img src="<?php echo $url."/product-images/".$row['ref'].".jpg"; ?>" style="width: 300px; border-radius: 3px"></img>

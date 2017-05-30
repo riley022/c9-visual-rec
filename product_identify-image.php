@@ -18,61 +18,69 @@
         $productid = mysqli_insert_id($connection);
         
         // Establishes image name
+        $file_name = $productid.".".$file_ext;
+        
         $file_unique_name = $productid.".jpg";
         
+        error_log($file_tmp);
+        
         // Saves image into global catalogue
-        move_uploaded_file($file_tmp,"product-images/".$file_unique_name);
+        move_uploaded_file($file_tmp,"product-images/".$file_name);
+        
+        if ($_POST['video'] == 'true'){
+          shell_exec(escapeshellcmd("python scripts/run_video.py ".$file_name));
+          shell_exec(escapeshellcmd("python scripts/run_azure_description.py  ".$file_unique_name));
+        }
+        shell_exec(escapeshellcmd("./product-images/convert.sh"));
         
         // Initalizes Azure Computer Vision, generates CSV file, Writes tags into SQL database.
         if ($_POST['azure'] == 'true') {
-          shell_exec(escapeshellcmd("./product-images/convert.sh ; python scripts/run_azure.py ".$file_unique_name));
+          shell_exec(escapeshellcmd("python scripts/run_azure.py ".$file_unique_name));
         }
         // Initalizes Azure Computer Vision, generates CSV file, Writes tags into SQL database.
         if ($_POST['azure2'] == 'true') {
-          shell_exec(escapeshellcmd("./product-images/convert.sh ; python scripts/run_azure_description.py  ".$file_unique_name));
+          shell_exec(escapeshellcmd("python scripts/run_azure_description.py  ".$file_unique_name));
         }
         //Sends Image and List file to exampleData
         if ($_POST['walmart-maps'] == 'true') {
-          shell_exec(escapeshellcmd("./product-images/convert.sh ; cd  /home/ubuntu/workspace/Map; python  /home/ubuntu/workspace/Map/Run-me.py ".$file_unique_name.";cd .."));
+          shell_exec(escapeshellcmd("cd  /home/ubuntu/workspace/Map; python  /home/ubuntu/workspace/Map/Run-me.py ".$file_unique_name.";cd .."));
         }
         // Initalizes TensorFlow (Cifar-10), generates CSV file.
         if ($_POST['tensorflow-10'] == 'true'){
-          shell_exec(escapeshellcmd("./product-images/convert.sh ; python scripts/run_tensor-10.py ".$file_unique_name));
+          shell_exec(escapeshellcmd("python scripts/run_tensor-10.py ".$file_unique_name));
         }
         // Initalizes TensorFlow (Cifar-100), generates CSV file.
         if ($_POST['tensorflow-100'] == 'true'){
-          shell_exec(escapeshellcmd("./product-images/convert.sh ; python scripts/run_tensor-100.py ".$file_unique_name));
+          shell_exec(escapeshellcmd("python scripts/run_tensor-100.py ".$file_unique_name));
         }
         // Initalizes DarkNet, generates CSV file.
         if ($_POST['darknet'] == 'true'){
-          shell_exec(escapeshellcmd("./product-images/convert.sh ; sudo python scripts/run_darknet.py darknet ".$file_unique_name));
+          shell_exec(escapeshellcmd("sudo python scripts/run_darknet.py darknet ".$file_unique_name));
         }
         if ($_POST['darknet19'] == 'true'){
-          shell_exec(escapeshellcmd("./product-images/convert.sh ; sudo python scripts/run_darknet.py darknet19 ".$file_unique_name));
+          shell_exec(escapeshellcmd("sudo python scripts/run_darknet.py darknet19 ".$file_unique_name));
         }
         if ($_POST['darknet19-Large'] == 'true'){
-          shell_exec(escapeshellcmd("./product-images/convert.sh ; sudo python scripts/run_darknet.py darknet19-large ".$file_unique_name));
+          shell_exec(escapeshellcmd("sudo python scripts/run_darknet.py darknet19-large ".$file_unique_name));
         }
         if ($_POST['yolo'] == 'true'){
-          shell_exec(escapeshellcmd("./product-images/convert.sh ; sudo python scripts/run_darknet.py yolo ".$file_unique_name));
+          shell_exec(escapeshellcmd("sudo python scripts/run_darknet.py yolo ".$file_unique_name));
         }
         if ($_POST['yolo-better'] == 'true'){
-          shell_exec(escapeshellcmd("./product-images/convert.sh ; sudo python scripts/run_darknet.py yolo-better ".$file_unique_name));
+          shell_exec(escapeshellcmd("sudo python scripts/run_darknet.py yolo-better ".$file_unique_name));
         }
         
         // Initalizes Google, generates CSV file.
         if ($_POST['google-text'] == 'true'){
-          shell_exec(escapeshellcmd("./product-images/convert.sh ; python google-cloud/label.py text product-images/".$file_unique_name));
+          shell_exec(escapeshellcmd("python google-cloud/label.py text product-images/".$file_unique_name));
         }
         if ($_POST['google-faces'] == 'true'){
-          shell_exec(escapeshellcmd("./product-images/convert.sh ; python google-cloud/label.py faces product-images/".$file_unique_name));
+          shell_exec(escapeshellcmd("python google-cloud/label.py faces product-images/".$file_unique_name));
         }
         if ($_POST['google-label'] == 'true'){
-          shell_exec(escapeshellcmd("./product-images/convert.sh ; python google-cloud/label.py labels product-images/".$file_unique_name));
+          shell_exec(escapeshellcmd("python google-cloud/label.py labels product-images/".$file_unique_name));
         }
-        if ($_POST['video'] == 'true'){
-          shell_exec(escapeshellcmd("./product-images/convert.sh"));
-        }
+
         
         // Saves name into database
         $nquery = 'SELECT tag.name, MAX(confidence) FROM tag WHERE tag.product_ref = '.$productid.'';
@@ -108,7 +116,7 @@
       <div class="mdl-card__supporting-text">
         <p>Select an image using the drag and drop area shown below, the picture must clearly show the product in order for detection to be accurate.</p>
         <form action="" method="POST" enctype="multipart/form-data">
-          <input type="file" name="image" class="dropify"/>
+          <input type="file" name="image" accept="video/mp4,video/x-m4v,video/*,image/*,images/jpg,images/png" />
           <h6 style="margin-bottom:0"><b>Select Image Recognition Service:</b></h6>
           <div style="padding-left: 15px">
             <div class="mdl-grid">
@@ -179,7 +187,7 @@
                 <br><br>
                 <span class="mdl-checkbox__label"><b>Video</b></span>
                 <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-16">
-                  <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" value="true" name="video">
+                  <input type="checkbox" id="checkbox-16" class="mdl-checkbox__input" value="true" name="video">
                   <span class="mdl-checkbox__label">Video Label</span>
                 </label>
               </div>
