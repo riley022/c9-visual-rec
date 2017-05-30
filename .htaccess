@@ -1,0 +1,26 @@
+RewriteEngine On 
+
+RewriteRule ^explore(/)?$                       explore.php
+RewriteRule ^search(/)?$                        search.php
+RewriteRule ^login(/)?$                         login.php
+RewriteRule ^logout(/)?$                        logout.php
+RewriteRule ^register(/)?$                      user_create.php
+
+RewriteRule ^usercase(/)?$                      usercase.php
+RewriteRule ^usercase/example-1(/)?$            usercase_example-1.php
+RewriteRule ^usercase/example-2(/)?$            usercase_example-2.php
+
+RewriteRule ^api(/)?$                           api_connect.php
+RewriteRule ^api/documentation(/)?$             api_documentation.php
+
+RewriteRule ^product/identify-image(/)?$        product_identify-image.php
+RewriteRule ^product/identify-video(/)?$        product_identify-video.php
+RewriteRule ^product/edit/([^-]*)?$             product_edit.php?ref=$1 [L]
+RewriteRule ^product/delete/([^-]*)?$           product_delete.php?ref=$1 [L]
+RewriteRule ^product/([^-]*)?$                  product_view.php?ref=$1 [L]
+
+RewriteRule ^user/create(/)?$                   user_create.php
+RewriteRule ^user/edit(/)?$                     user_edit.php
+RewriteRule ^user/delete(/)?$                   user_delete.php
+RewriteRule ^user(/)?$                          user_view.php
+RewriteRule ^user/([^-]*)?$                     user_view.php?ref=$1 [L]
