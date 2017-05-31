@@ -26,8 +26,12 @@
           <label><b>Product Name</b></label>
           <p style="text-transform: capitalize;"><?php echo $row['name']." - " ?> 
           <?php echo $row['ref'] ?></p>
+          <hr>
           <label><b>Product Video</b></label>
           <p><a href="<?php echo "http://54.153.238.139/img/".$row['ref'].".mp4"; ?>" >Click Here</a> - Not Avaliable for all Products (May take up to 5 minutes)</p>
+          <label><b>Training Progress</b></label>
+          <p><a href="<?php echo "http://54.153.238.139/models/".$row['ref'].".log"; ?>" >Click Here</a> - Not Avaliable for all Products</p>
+          <hr>
           <label><b>Processed Image</b></label>
           <br>
           <img src="<?php echo $url."/product-images/".$row['ref'].".jpg"; ?>" style="width: 300px; border-radius: 3px"></img>

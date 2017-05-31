@@ -157,7 +157,17 @@
                   <input type="checkbox" id="checkbox-9" class="mdl-checkbox__input" value="true" name="yolo-better">
                   <span class="mdl-checkbox__label">DarkNet (YOLOv2 544x544)</span>
                 </label>
+                <br><br>
+                <span class="mdl-checkbox__label"><b>Custom Training</b></span><br>
+                <select name="level">
+                  <?php
+                  foreach (glob("/home/ubuntu/workspace/product-images/*") as $filename) {
+                      echo "<option value='" . $filename .">" . end(explode('/',$filename)) . "</option>"; 
+                  }
+                  ?>
+                </select>
               </div>
+              <br>
               <div class='mdl-cell mdl-cell--6-col'>
                 <span class="mdl-checkbox__label"><b>Azure Computer Vision</b></span>
                 <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">

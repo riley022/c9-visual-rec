@@ -51,7 +51,7 @@ if(!isset($_SESSION)) {
           <nav class="mdl-navigation">
             <a class="mdl-layout__tab" href="<?php echo $url ?>">Home</a>
             <a class="mdl-layout__tab" href="<?php echo $url ?>/product/identify-image">Identify Image/Video</a>
-            <!--<a class="mdl-layout__tab" href="<?php echo $url ?>/product/identify-video">Identify Video</a>-->
+            <a class="mdl-layout__tab" href="<?php echo $url ?>/product/custom-train">Custom Training</a>
             <a class="mdl-layout__tab" href="<?php echo $url ?>/usercase">Examples</a>
             <a class="mdl-layout__tab" href="<?php echo $url ?>/user">Profile</a>
             <a class="mdl-layout__tab" href="<?php echo $url ?>/logout">Logout</a>

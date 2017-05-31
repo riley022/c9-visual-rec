@@ -19,6 +19,8 @@ RewriteRule ^product/edit/([^-]*)?$             product_edit.php?ref=$1 [L]
 RewriteRule ^product/delete/([^-]*)?$           product_delete.php?ref=$1 [L]
 RewriteRule ^product/([^-]*)?$                  product_view.php?ref=$1 [L]
 
+RewriteRule ^product/custom-train(/)?$          custom-train.php
+
 RewriteRule ^user/create(/)?$                   user_create.php
 RewriteRule ^user/edit(/)?$                     user_edit.php
 RewriteRule ^user/delete(/)?$                   user_delete.php
